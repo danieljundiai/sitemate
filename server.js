@@ -1,7 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json()); 
 
 let items = [
@@ -39,6 +41,11 @@ app.delete('/item/:id', (req, res) => {
   res.status(204).send();
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
+
+
+module.exports = app;
